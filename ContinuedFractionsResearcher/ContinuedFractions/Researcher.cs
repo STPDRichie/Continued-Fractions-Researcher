@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace ContinuedFractionsResearcher
 {
@@ -15,7 +17,7 @@ namespace ContinuedFractionsResearcher
             for (var i = 0; i < 1 / chartAccuracy; i++)
                 chart[i * chartAccuracy] = 0;
         }
-        
+
         public void GenerateContinuedFractions(
             int fractionsCount,
             (int Min, int Max) partialQuotientsCountRange,
@@ -23,16 +25,15 @@ namespace ContinuedFractionsResearcher
         {
             var (minCount, maxCount) = partialQuotientsCountRange;
             // var (minValue, maxValue) = partialQuotientsValueRange;
-            
             var partialQuotients = new List<int>();
             for (var i = 0; i < fractionsCount; i++)
             {
-                var partialQuotientsCount = (minCount == maxCount) ? minCount : 0; //rnd next or smth...
-                
+                var partialQuotientsCount =
+                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt32(); //rnd next or smth...
                 partialQuotients.Clear();
                 for (var j = 0; j < partialQuotientsCount; j++)
                 {
-                    var partialQuotient = 0; //rnd next or smth...
+                    var partialQuotient = RandomNumberGenerator.GetNextInt32(); //rnd next or smth...
                     partialQuotients.Add(partialQuotient);
                 }
 

@@ -51,6 +51,7 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="ContinuedFractions\ContinuedFraction.cs" />
+        <Compile Include="ContinuedFractions\RandomNumberGenerator.cs" />
         <Compile Include="ContinuedFractions\Researcher.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
