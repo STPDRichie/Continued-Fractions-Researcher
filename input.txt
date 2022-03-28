@@ -1,0 +1,4 @@
+Continued fractions count: 100
+Number of fraction/fractions floors: 100-1000
+Range of partial quotients: 1-1000
+Chart accuracy: 0.05

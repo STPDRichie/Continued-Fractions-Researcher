@@ -6,16 +6,16 @@ namespace ContinuedFractionsResearcher
 {
     public class Researcher
     {
-        private double chartAccuracy;
-        private Dictionary<double, int> chart;
+        private double ChartAccuracy { get; }
+        public Dictionary<double, int> Chart { get; }
 
         public Researcher(double chartAccuracy)
         {
-            this.chartAccuracy = chartAccuracy;
+            ChartAccuracy = chartAccuracy;
 
-            chart = new Dictionary<double, int>();
+            Chart = new Dictionary<double, int>();
             for (var i = 0; i < 1 / chartAccuracy; i++)
-                chart[i * chartAccuracy] = 0;
+                Chart[i * chartAccuracy] = 0;
         }
 
         public void GenerateContinuedFractions(
@@ -28,17 +28,17 @@ namespace ContinuedFractionsResearcher
             for (var i = 0; i < fractionsCount; i++)
             {
                 var partialQuotientsCount =
-                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt32();
+                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt32(); // TODO Generate in range [minCount; maxCount]
                 partialQuotients.Clear();
                 for (var j = 0; j < partialQuotientsCount; j++)
                 {
-                    var partialQuotient = RandomNumberGenerator.GetNextInt32();
+                    var partialQuotient = RandomNumberGenerator.GetNextInt32(); // TODO Generate in range [pQVR.Min; pQVR.Max]
                     partialQuotients.Add(partialQuotient);
                 }
 
                 var fraction = new ContinuedFraction(partialQuotients);
-                var nearest = fraction.Value % chartAccuracy;
-                chart[chartAccuracy * nearest] += 1;
+                var nearest = (int)(fraction.Value / ChartAccuracy);
+                Chart[ChartAccuracy * nearest] += 1;
             }
         }
     }

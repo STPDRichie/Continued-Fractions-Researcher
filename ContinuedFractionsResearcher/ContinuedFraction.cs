@@ -5,20 +5,18 @@ namespace ContinuedFractionsResearcher
     public class ContinuedFraction
     {
         public double Value { get; }
-        
-        private readonly List<int> partialQuotients;
-        public IReadOnlyList<int> PartialQuotients => partialQuotients;
 
-        public ContinuedFraction(List<int> partialQuotients)
+        public ContinuedFraction(IReadOnlyList<int> partialQuotients)
         {
-            this.partialQuotients = partialQuotients;
-            
-            CountContinuedFraction();
+            Value = CountContinuedFraction(0, partialQuotients);
         }
 
-        private void CountContinuedFraction()
+        private static double CountContinuedFraction(int i, IReadOnlyList<int> partialQuotients)
         {
-            
+            if (i == partialQuotients.Count - 1)
+                return 1 / (double)partialQuotients[i];
+
+            return 1 / (partialQuotients[i] + CountContinuedFraction(++i, partialQuotients));
         }
     }
 }
