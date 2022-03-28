@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -24,16 +24,15 @@ namespace ContinuedFractionsResearcher
             (int Min, int Max) partialQuotientsValueRange)
         {
             var (minCount, maxCount) = partialQuotientsCountRange;
-            // var (minValue, maxValue) = partialQuotientsValueRange;
             var partialQuotients = new List<int>();
             for (var i = 0; i < fractionsCount; i++)
             {
                 var partialQuotientsCount =
-                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt32(); //rnd next or smth...
+                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt32();
                 partialQuotients.Clear();
                 for (var j = 0; j < partialQuotientsCount; j++)
                 {
-                    var partialQuotient = RandomNumberGenerator.GetNextInt32(); //rnd next or smth...
+                    var partialQuotient = RandomNumberGenerator.GetNextInt32();
                     partialQuotients.Add(partialQuotient);
                 }
 

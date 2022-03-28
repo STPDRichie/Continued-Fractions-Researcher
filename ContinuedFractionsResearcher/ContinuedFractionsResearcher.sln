@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContinuedFractionsResearcher", "ContinuedFractionsResearcher.csproj", "{997074E6-90FA-4CAA-A84B-0DC14D0C8876}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContinuedFractionsResearcher", "ContinuedFractionsResearcher.csproj", "{E8BE85FF-F260-4132-ADBF-D0B557D0698C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{997074E6-90FA-4CAA-A84B-0DC14D0C8876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{997074E6-90FA-4CAA-A84B-0DC14D0C8876}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{997074E6-90FA-4CAA-A84B-0DC14D0C8876}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{997074E6-90FA-4CAA-A84B-0DC14D0C8876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8BE85FF-F260-4132-ADBF-D0B557D0698C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8BE85FF-F260-4132-ADBF-D0B557D0698C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8BE85FF-F260-4132-ADBF-D0B557D0698C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8BE85FF-F260-4132-ADBF-D0B557D0698C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
