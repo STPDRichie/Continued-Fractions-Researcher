@@ -9,11 +9,13 @@ namespace ContinuedFractionsResearcher
         private static System.Security.Cryptography.RandomNumberGenerator rnd = System.Security.Cryptography
             .RandomNumberGenerator
             .Create();
+        // private static Random rnd = new Random();
 
-        public static int GetNextInt32()
+        public static int GetNextInt16()
         {
+            // return rnd.Next(1, 1000);
             rnd.GetBytes(bytes);
-            return Math.Abs(BitConverter.ToInt32(bytes, 0));
+            return Math.Abs(BitConverter.ToInt16(bytes, 0));
         }
     }
 }

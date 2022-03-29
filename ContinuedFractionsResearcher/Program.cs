@@ -26,7 +26,7 @@ namespace ContinuedFractionsResearcher
                 for (var i = 0; i < 4; i++)
                     input[i] = inputArray[i].Split(": ")[1];
 
-                var researcher = new Researcher(double.Parse(input[3]));
+                var researcher = new Researcher(int.Parse(input[3]));
 
                 var partialQuotientsCountRangeInput = input[1].Split("-");
                 var partialQuotientsCountRange = partialQuotientsCountRangeInput.Length == 2 ? 
@@ -42,7 +42,7 @@ namespace ContinuedFractionsResearcher
                 // foreach (var item in researcher.Chart.Values)
                 //     writer.Write(item + "\n");
                 
-                // File.WriteAllText(fileOutput, researcher.Chart.ToString());
+                File.WriteAllText(fileOutput, researcher.Chart.ToString());
             }
             catch (FileNotFoundException)
             {
