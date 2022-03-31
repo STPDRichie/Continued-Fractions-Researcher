@@ -6,17 +6,29 @@ namespace ContinuedFractionsResearcher
     {
         public double Value { get; }
 
-        public ContinuedFraction(IReadOnlyList<int> partialQuotients)
+        private int MinValue { get; }
+        private int MaxValue { get; }
+
+        private int PartialQuotientsCount { get; }
+
+        public ContinuedFraction(int partialQuotientsCount, (int minValue, int maxValue) partialQuotientValueRange)
         {
-            Value = CountContinuedFraction(0, partialQuotients);
+            MinValue = partialQuotientValueRange.minValue;
+            MaxValue = partialQuotientValueRange.maxValue;
+
+            PartialQuotientsCount = partialQuotientsCount;
+            
+            Value = CountContinuedFraction(0);
         }
 
-        private static double CountContinuedFraction(int i, IReadOnlyList<int> partialQuotients)
+        private double CountContinuedFraction(int i)
         {
-            if (i == partialQuotients.Count - 1)
-                return 1 / (double)partialQuotients[i];
+            var partialQuotient = RandomNumberGenerator.GetNextInt(MinValue, MaxValue);
+            
+            if (i == PartialQuotientsCount - 1)
+                return 1 / (double)partialQuotient;
 
-            return 1 / (partialQuotients[i] + CountContinuedFraction(++i, partialQuotients));
+            return 1 / (partialQuotient + CountContinuedFraction(++i));
         }
     }
 }

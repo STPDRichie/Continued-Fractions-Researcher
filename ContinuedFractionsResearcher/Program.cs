@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace ContinuedFractionsResearcher
+﻿namespace ContinuedFractionsResearcher
 {
     public static class Program
     {
@@ -40,44 +38,36 @@ namespace ContinuedFractionsResearcher
                 researcher.GenerateContinuedFractions(int.Parse(input[0]), partialQuotientsCountRange,
                     partialQuotientsValueRange);
 
-                // var writer = File.AppendText(fileOutput);
-                // foreach (var item in researcher.Chart.Values)
-                //     writer.Write(item + "\n");
-
-                File.WriteAllText(fileOutput, researcher.Chart.ToString());
-
-                var reportExel = new ReportMaker().Generate(researcher.Chart, int.Parse(input[3]));
-                var exelDirectory = AppContext.BaseDirectory
-                    [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)];
-                File.WriteAllBytes(Path.Combine(exelDirectory + "\\Report.xlsx"),
-                    reportExel);
+                var reportExcel = new ReportMaker().Generate(researcher.Chart, int.Parse(input[3]));
+                
+                File.WriteAllBytes(Path.Combine(rootDirectory, "Report.xlsx"), reportExcel);
             }
             catch (FileNotFoundException)
             {
-                File.WriteAllText(Path.Combine(AppContext.BaseDirectory
-                            [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)],
-                        "output.txt"),
+                File.WriteAllText(Path.Combine(
+                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
                     "File not found.");
             }
             catch (FormatException)
             {
-                File.WriteAllText(Path.Combine(AppContext.BaseDirectory
-                            [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)],
-                        "output.txt"),
+                File.WriteAllText(Path.Combine(
+                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
                     "Incorrect input. Values is not numbers.");
             }
             catch (ArgumentException)
             {
-                File.WriteAllText(Path.Combine(AppContext.BaseDirectory
-                            [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)],
-                        "output.txt"),
+                File.WriteAllText(Path.Combine(
+                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
                     "Incorrect input. Values is not right numbers.");
             }
             catch (IndexOutOfRangeException)
             {
-                File.WriteAllText(Path.Combine(AppContext.BaseDirectory
-                            [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)],
-                        "output.txt"),
+                File.WriteAllText(Path.Combine(
+                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
                     "Incorrect input.");
             }
         }

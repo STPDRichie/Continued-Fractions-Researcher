@@ -24,21 +24,13 @@ namespace ContinuedFractionsResearcher
             (int Min, int Max) partialQuotientsValueRange)
         {
             var (minCount, maxCount) = partialQuotientsCountRange;
-            var (minValue, maxValue) = partialQuotientsValueRange;
             
-            var partialQuotients = new List<int>();
             for (var i = 0; i < fractionsCount; i++)
             {
                 var partialQuotientsCount =
-                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt(minCount, maxCount); // TODO Generate in range [minCount; maxCount]
-                partialQuotients.Clear();
-                for (var j = 0; j < partialQuotientsCount; j++)
-                {
-                    var partialQuotient = RandomNumberGenerator.GetNextInt(minValue, maxValue); // TODO Generate in range [pQVR.Min; pQVR.Max]
-                    partialQuotients.Add(partialQuotient);
-                }
+                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt(minCount, maxCount);
 
-                var fraction = new ContinuedFraction(partialQuotients);
+                var fraction = new ContinuedFraction(partialQuotientsCount, partialQuotientsValueRange);
                 var nearest = (int)(fraction.Value / (double)ChartAccuracy);
                 Chart[ChartAccuracy * nearest] += 1;
             }
