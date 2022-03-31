@@ -3,9 +3,9 @@ using OfficeOpenXml.Drawing.Chart;
 
 namespace ContinuedFractionsResearcher;
 
-public class ReportMaker
+public static class ReportMaker
 {
-    public byte[] Generate(Dictionary<decimal, int> research, int accuracy)
+    public static byte[] Generate(Dictionary<decimal, int> research, int accuracy)
     {
         var package = new ExcelPackage();
 
@@ -25,9 +25,7 @@ public class ReportMaker
         researchGraph.SetPosition(7, 0, 5, 0);
         researchGraph.SetSize(900, 600);
 
-        var researchData =
-            (ExcelChartSerie)(researchGraph.Series.Add(sheet.Cells["B1:B" + accuracy],
-                sheet.Cells["A1:A" + accuracy]));
+        var researchData = researchGraph.Series.Add(sheet.Cells["B1:B" + accuracy], sheet.Cells["A1:A" + accuracy]);
 
         researchData.Header = "Continued fractions count";
 
