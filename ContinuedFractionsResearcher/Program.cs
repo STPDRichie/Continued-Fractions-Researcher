@@ -49,7 +49,7 @@ namespace ContinuedFractionsResearcher
                 var reportExel = new ReportMaker().Generate(researcher.Chart, int.Parse(input[3]));
                 var exelDirectory = AppContext.BaseDirectory
                     [..AppContext.BaseDirectory.IndexOf("ContinuedFractionsResearcher", StringComparison.Ordinal)];
-                File.WriteAllBytes(Path.Combine(exelDirectory + "\\Reports\\Report.xlsx"),
+                File.WriteAllBytes(Path.Combine(exelDirectory + "\\Report.xlsx"),
                     reportExel);
             }
             catch (FileNotFoundException)
