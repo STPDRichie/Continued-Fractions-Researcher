@@ -1,39 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿namespace ContinuedFractionsResearcher;
 
-namespace ContinuedFractionsResearcher
+public class Researcher
 {
-    public class Researcher
+    private decimal ChartAccuracy { get; }
+    public Dictionary<decimal, int> Chart { get; }
+
+    public Researcher(int chartAccuracy)
     {
-        private decimal ChartAccuracy { get; }
-        public Dictionary<decimal, int> Chart { get; }
+        ChartAccuracy = 1 / (decimal)chartAccuracy;
 
-        public Researcher(int chartAccuracy)
-        {
-            ChartAccuracy = 1 / (decimal)chartAccuracy;
+        Chart = new Dictionary<decimal, int>();
+        for (var i = 0; i < 1 / ChartAccuracy; i++)
+            Chart[i * ChartAccuracy] = 0;
+    }
 
-            Chart = new Dictionary<decimal, int>();
-            for (var i = 0; i < 1 / ChartAccuracy; i++)
-                Chart[i * ChartAccuracy] = 0;
-        }
-
-        public void GenerateContinuedFractions(
-            int fractionsCount,
-            (int Min, int Max) partialQuotientsCountRange,
-            (int Min, int Max) partialQuotientsValueRange)
-        {
-            var (minCount, maxCount) = partialQuotientsCountRange;
+    public void GenerateContinuedFractions(
+        int fractionsCount,
+        (int Min, int Max) partialQuotientsCountRange,
+        (int Min, int Max) partialQuotientsValueRange)
+    {
+        var (minCount, maxCount) = partialQuotientsCountRange;
+        var isCountFixed = minCount == maxCount;
             
-            for (var i = 0; i < fractionsCount; i++)
-            {
-                var partialQuotientsCount =
-                    (minCount == maxCount) ? minCount : RandomNumberGenerator.GetNextInt(minCount, maxCount);
+        for (var i = 0; i < fractionsCount; i++)
+        {
+            var partialQuotientsCount = isCountFixed ? minCount : RandomNumberGenerator.GetNextInt(minCount, maxCount);
 
-                var fraction = new ContinuedFraction(partialQuotientsCount, partialQuotientsValueRange);
-                var nearest = (int)(fraction.Value / (double)ChartAccuracy);
-                Chart[ChartAccuracy * nearest] += 1;
-            }
+            var fraction = new ContinuedFraction(partialQuotientsCount, partialQuotientsValueRange);
+                
+            var nearest = (int)(fraction.Value / (double)ChartAccuracy);
+            Chart[ChartAccuracy * nearest] += 1;
         }
     }
 }
