@@ -1,10 +1,9 @@
-﻿using Microsoft.VisualBasic;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using OfficeOpenXml.Drawing.Chart;
 
 namespace ContinuedFractionsResearcher;
 
-public class ReportMaker
+public static class ReportMaker
 {
     public static byte[] Generate(Dictionary<decimal, int> research)
     {
@@ -22,8 +21,7 @@ public class ReportMaker
         researchGraph.SetSize(1000, 650);
 
         var researchData =
-            (ExcelChartSerie)(researchGraph.Series.Add(source.Cells[range.valueRange],
-                source.Cells[range.accuracyRange]));
+            (ExcelChartSerie)(researchGraph.Series.Add(source.Cells[range.ValueRange], source.Cells[range.AccuracyRange]));
 
         researchData.Header = "Continued fractions count";
 
@@ -55,13 +53,13 @@ public class ReportMaker
 
     private struct Range
     {
-        public readonly string valueRange;
-        public readonly string accuracyRange;
+        public readonly string ValueRange;
+        public readonly string AccuracyRange;
 
         public Range(string valueRange, string accuracyRange)
         {
-            this.valueRange = valueRange;
-            this.accuracyRange = accuracyRange;
+            ValueRange = valueRange;
+            AccuracyRange = accuracyRange;
         }
     }
 }
