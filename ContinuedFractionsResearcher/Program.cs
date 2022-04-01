@@ -38,36 +38,36 @@
                 researcher.GenerateContinuedFractions(int.Parse(input[0]), partialQuotientsCountRange,
                     partialQuotientsValueRange);
 
-                var reportExcel = new ReportMaker().Generate(researcher.Chart, int.Parse(input[3]));
-                
+                var reportExcel = ReportMaker.Generate(researcher.Chart);
+
                 File.WriteAllBytes(Path.Combine(rootDirectory, "Report.xlsx"), reportExcel);
             }
             catch (FileNotFoundException)
             {
                 File.WriteAllText(Path.Combine(
-                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
-                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
+                        AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                            "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"),
                     "File not found.");
             }
             catch (FormatException)
             {
                 File.WriteAllText(Path.Combine(
-                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
-                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
+                        AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                            "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"),
                     "Incorrect input. Values is not numbers.");
             }
             catch (ArgumentException)
             {
                 File.WriteAllText(Path.Combine(
-                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
-                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
+                        AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                            "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"),
                     "Incorrect input. Values is not right numbers.");
             }
             catch (IndexOutOfRangeException)
             {
                 File.WriteAllText(Path.Combine(
-                    AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
-                        "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"), 
+                        AppContext.BaseDirectory[..AppContext.BaseDirectory.IndexOf(
+                            "ContinuedFractionsResearcher", StringComparison.Ordinal)], "output.txt"),
                     "Incorrect input.");
             }
         }
