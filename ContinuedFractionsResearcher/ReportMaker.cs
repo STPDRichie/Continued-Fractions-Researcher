@@ -21,12 +21,13 @@ public static class ReportMaker
         researchGraph.SetSize(1000, 650);
 
         var researchData =
-            (ExcelChartSerie)(researchGraph.Series.Add(source.Cells[range.ValueRange], source.Cells[range.AccuracyRange]));
+            (ExcelChartSerie)(researchGraph.Series.Add(source.Cells[range.ValueRange],
+                source.Cells[range.AccuracyRange]));
 
-        researchData.Header = "Continued fractions count";
+        // researchData.Header = "Continued fractions count";
 
-        source.Protection.IsProtected = true;
-        sheet.Protection.IsProtected = true;
+        // source.Protection.IsProtected = true;
+        // sheet.Protection.IsProtected = true;
 
 
         return package.GetAsByteArray();
@@ -40,15 +41,27 @@ public static class ReportMaker
         source.Cells["B1"].Value = "Count";
         source.Cells["B1"].Style.Font.Bold = true;
 
+        source.Cells["C1"].Value = "Relative";
+        source.Cells["C1"].Style.Font.Bold = true;
+
+        source.Cells["D1"].Value = "Sum";
+        source.Cells["D1"].Style.Font.Bold = true;
+
         var rangeCount = 2;
+        var sumFrequency = 0.0;
+        var fractionCount = research.Sum(x => x.Value);
+        Console.WriteLine(fractionCount);
         foreach (var (key, value) in research.OrderBy(x => x.Key))
         {
+            sumFrequency += (double)value / fractionCount;
             source.Cells["A" + rangeCount].Value = key;
             source.Cells["B" + rangeCount].Value = value;
+            source.Cells["C" + rangeCount].Value = (double)value / fractionCount;
+            source.Cells["D" + rangeCount].Value = sumFrequency;
             rangeCount++;
         }
 
-        return new Range("B2:B" + rangeCount, "A2:A" + rangeCount);
+        return new Range("C2:C" + rangeCount, "A2:A" + rangeCount);
     }
 
     private struct Range
