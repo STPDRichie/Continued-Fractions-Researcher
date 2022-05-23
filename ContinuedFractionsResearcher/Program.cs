@@ -10,7 +10,7 @@ public static class Program
         var fileInput = Path.Combine(rootDirectory, "input.txt");
         var fileErrorLog = Path.Combine(rootDirectory, "error_log.txt");
         var fileOutput = Path.Combine(rootDirectory, "Report.xlsx");
-            
+
         try
         {
             var inputArray = File.ReadAllLines(fileInput);
@@ -33,17 +33,23 @@ public static class Program
                 : (int.Parse(partialQuotientsCountRangeInput[0]), int.Parse(partialQuotientsCountRangeInput[0]));
 
             var partialQuotientsValueRangeInput = input[2].Split("-");
-            var partialQuotientsValueRange = 
+            var partialQuotientsValueRange =
                 (int.Parse(partialQuotientsValueRangeInput[0]), int.Parse(partialQuotientsValueRangeInput[1]));
 
-            researcher.GenerateContinuedFractions(int.Parse(input[0]), partialQuotientsCountRange, partialQuotientsValueRange);
+            researcher.GenerateContinuedFractions(int.Parse(input[0]), partialQuotientsCountRange,
+                partialQuotientsValueRange);
+            
+            // TODO Подобрать такую функцию, чтобы зависимость была линейной
             researcher.ChangeChartByFunc(
-                (count, position) => count / position,
+                (count, position) => 1 / position * 100,
                 (count, number) => count / number);
 
-            var reportExcel = ReportMaker.Generate(researcher.Chart);
+            ReportMaker.Generate(researcher.Chart, "Report", "Default Allocation", "Accuracy", "Count");
+            ReportMaker.Generate<double>(researcher.ChangedChart, "Changed Report", "Changed Report",
+                "Accuracy", "Changed count");
 
-            File.WriteAllBytes(fileOutput, reportExcel);
+
+            File.WriteAllBytes(fileOutput, ReportMaker.GetPackage());
         }
         catch (FileNotFoundException)
         {

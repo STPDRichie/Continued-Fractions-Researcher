@@ -5,62 +5,50 @@ namespace ContinuedFractionsResearcher;
 
 public static class ReportMaker
 {
-    public static byte[] Generate(Dictionary<decimal, int> research)
+    private static readonly ExcelPackage Package = new ExcelPackage();
+
+    public static byte[] GetPackage()
     {
-        var package = new ExcelPackage();
-
-        var sheet = package.Workbook.Worksheets.Add("Research report");
-        var source = package.Workbook.Worksheets.Add("Source");
-
-        var researchGraph = sheet.Drawings.AddChart("Continued fractions count", eChartType.LineStacked);
-
-        var range = CreateRange(source, research);
-
-        researchGraph.Title.Text = "Distribution of continued fractions";
-        researchGraph.SetPosition(3, 0, 3, 0);
-        researchGraph.SetSize(1000, 650);
-
-        var researchData =
-            (ExcelChartSerie)(researchGraph.Series.Add(source.Cells[range.ValueRange],
-                source.Cells[range.AccuracyRange]));
-
-        // researchData.Header = "Continued fractions count";
-
-        // source.Protection.IsProtected = true;
-        // sheet.Protection.IsProtected = true;
-
-
-        return package.GetAsByteArray();
+        return Package.GetAsByteArray();
     }
 
-    private static Range CreateRange(ExcelWorksheet source, Dictionary<decimal, int> research)
+    public static void Generate<T>(Dictionary<decimal, T> research, string sheetName, string title, string xAxisName,
+        string yAxisName)
     {
-        source.Cells["A1"].Value = "Accuracy";
+        var sheet = Package.Workbook.Worksheets.Add(sheetName);
+        var sourceSheet = Package.Workbook.Worksheets.Add($"{sheetName}_source");
+
+        var graph = sheet.Drawings.AddChart(sheetName, eChartType.LineStacked);
+
+        var range = CreateRange(sourceSheet, research, xAxisName, yAxisName);
+
+        graph.Title.Text = title;
+        graph.SetPosition(3, 0, 3, 0);
+        graph.SetSize(1000, 650);
+
+        graph.Series.Add(sourceSheet.Cells[range.ValueRange],
+            sourceSheet.Cells[range.AccuracyRange]);
+    }
+
+    private static Range CreateRange<T>(ExcelWorksheet source, Dictionary<decimal, T> research, string xAxisName,
+        string yAxisName)
+    {
+        source.Cells["A1"].Value = xAxisName;
         source.Cells["A1"].Style.Font.Bold = true;
 
-        source.Cells["B1"].Value = "Count";
+        source.Cells["B1"].Value = yAxisName;
         source.Cells["B1"].Style.Font.Bold = true;
 
-        source.Cells["C1"].Value = "Relative";
-        source.Cells["C1"].Style.Font.Bold = true;
-
-        source.Cells["D1"].Value = "Sum";
-        source.Cells["D1"].Style.Font.Bold = true;
 
         var rangeCount = 2;
-        var sumFrequency = 0.0;
-        var fractionCount = research.Sum(x => x.Value);
         foreach (var (key, value) in research.OrderBy(x => x.Key))
         {
-            sumFrequency += (double)value / fractionCount;
             source.Cells["A" + rangeCount].Value = key;
             source.Cells["B" + rangeCount].Value = value;
-            source.Cells["C" + rangeCount].Value = (double)value / fractionCount;
-            source.Cells["D" + rangeCount].Value = sumFrequency;
             rangeCount++;
         }
 
-        return new Range("C2:C" + rangeCount, "A2:A" + rangeCount);
+        return new Range("B2:B" + rangeCount, "A2:A" + rangeCount);
     }
 
     private struct Range

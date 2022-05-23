@@ -37,7 +37,7 @@ public class Researcher
             Chart[ChartAccuracy * nearest] += 1;
         }
     }
-
+    // TODO Правильно выбирать значение в точке 0
     public void ChangeChartByFunc(Func<double, double, double> func, Func<double, double, double> operation)
     {
         ChangedChart = Chart.ToDictionary(
