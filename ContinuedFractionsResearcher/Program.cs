@@ -37,6 +37,9 @@ public static class Program
                 (int.Parse(partialQuotientsValueRangeInput[0]), int.Parse(partialQuotientsValueRangeInput[1]));
 
             researcher.GenerateContinuedFractions(int.Parse(input[0]), partialQuotientsCountRange, partialQuotientsValueRange);
+            researcher.ChangeChartByFunc(
+                (count, position) => count / position,
+                (count, number) => count / number);
 
             var reportExcel = ReportMaker.Generate(researcher.Chart);
 

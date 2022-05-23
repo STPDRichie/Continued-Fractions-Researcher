@@ -50,7 +50,6 @@ public static class ReportMaker
         var rangeCount = 2;
         var sumFrequency = 0.0;
         var fractionCount = research.Sum(x => x.Value);
-        Console.WriteLine(fractionCount);
         foreach (var (key, value) in research.OrderBy(x => x.Key))
         {
             sumFrequency += (double)value / fractionCount;
